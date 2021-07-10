@@ -14,13 +14,13 @@ final class PdoCustomerRepository implements CustomerRepository
 
     public function getRevenueById(string $customerId): ?MoneyAmount
     {
-        $stmt = $this->db->query('SELECT customer.revenue FROM customer WHERE customer.id = :id');
+        $stmt = $this->db->prepare('SELECT customer.revenue FROM customer WHERE customer.id = :id');
         \assert($stmt !== false);
-        $stmt->bindParam('id', $customerId);
+        $stmt->execute(['id' => $customerId]);
 
-        /** @var int|false $revenue */
+        /** @var string|false $revenue */
         $revenue = $stmt->fetchColumn();
 
-        return $revenue !== false ? MoneyAmount::fromInt($revenue) : null;
+        return $revenue !== false ? MoneyAmount::fromInt((int)$revenue) : null;
     }
 }

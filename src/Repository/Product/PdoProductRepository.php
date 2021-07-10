@@ -12,9 +12,9 @@ final class PdoProductRepository implements ProductRepository
 
     public function getCategoryIdById(string $productId): ?string
     {
-        $stmt = $this->db->query('SELECT product.category FROM product WHERE product.id = :id');
+        $stmt = $this->db->prepare('SELECT product.category FROM product WHERE product.id = :id');
         \assert($stmt !== false);
-        $stmt->bindParam('id', $productId);
+        $stmt->execute(['id' => $productId]);
 
         /** @var string|false $categoryId */
         $categoryId = $stmt->fetchColumn();
