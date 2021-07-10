@@ -3,21 +3,25 @@ declare(strict_types=1);
 
 namespace App\Calculator;
 
+use App\Calculator\Discount\Discount;
 use App\Domain\Discount\AppliedDiscounts;
 use App\Dto\Order\Order;
-use App\Repository\Customer\CustomerRepository;
-use App\Repository\Product\ProductRepository;
 
 final class DiscountCalculator
 {
     public function __construct(
-        private CustomerRepository $customerRepository,
-        private ProductRepository $productRepository,
+        /** @var array<Discount> */
+        private array $discounts,
     ) {
     }
 
     public function calculateDiscounts(Order $order): AppliedDiscounts
     {
-        throw new \RuntimeException('Not yet implemented');
+        $appliedDiscounts = \array_map(
+            static fn (Discount $discount): array => $discount->calculateDiscounts($order),
+            $this->discounts,
+        );
+
+        return new AppliedDiscounts($appliedDiscounts === [] ? [] : \array_merge(... $appliedDiscounts));
     }
 }

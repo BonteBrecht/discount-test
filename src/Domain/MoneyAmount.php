@@ -33,6 +33,11 @@ final class MoneyAmount
         return MoneyAmount::fromInt($other->toInt() + $this->amount);
     }
 
+    public function multiply(float $multiplier): self
+    {
+        return MoneyAmount::fromFloat($this->toFloat() * $multiplier);
+    }
+
     public function toInt(): int
     {
         return $this->amount;

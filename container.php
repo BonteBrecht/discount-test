@@ -1,5 +1,8 @@
 <?php
 
+use App\Calculator\Discount\Buy6Get1FreeSwitchDiscount;
+use App\Calculator\Discount\LoyalCustomerDiscount;
+use App\Calculator\Discount\ToolDiscount;
 use App\Calculator\DiscountCalculator;
 use App\Repository\Customer\CustomerRepository;
 use App\Repository\Customer\PdoCustomerRepository;
@@ -19,9 +22,10 @@ $container['db'] = static function (): PDO {
 $container[CustomerRepository::class] = static fn (Container $c): PdoCustomerRepository => new PdoCustomerRepository($c['db']);
 $container[ProductRepository::class] = static fn (Container $c): PdoProductRepository => new PdoProductRepository($c['db']);
 
-$container[DiscountCalculator::class] = static fn (Container $c): DiscountCalculator  => new DiscountCalculator(
-    $c[CustomerRepository::class],
-    $c[ProductRepository::class],
-);
+$container[DiscountCalculator::class] = static fn (Container $c): DiscountCalculator  => new DiscountCalculator([
+    new LoyalCustomerDiscount($c[CustomerRepository::class]),
+    new Buy6Get1FreeSwitchDiscount($c[ProductRepository::class]),
+    new ToolDiscount($c[ProductRepository::class]),
+]);
 
 return new Psr11Container($container);

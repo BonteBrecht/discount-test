@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Calculator;
 
+use App\Calculator\Discount\Buy6Get1FreeSwitchDiscount;
+use App\Calculator\Discount\LoyalCustomerDiscount;
+use App\Calculator\Discount\ToolDiscount;
 use App\Calculator\DiscountCalculator;
 use App\Domain\MoneyAmount;
 use App\Dto\Order\Order;
@@ -63,9 +66,13 @@ final class DiscountCalculatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->calculator = new DiscountCalculator(
-            new TestCustomerRepository(),
-            new TestProductRepository(),
-        );
+        $customerRepository = new TestCustomerRepository();
+        $productRepository = new TestProductRepository();
+
+        $this->calculator = new DiscountCalculator([
+            new LoyalCustomerDiscount($customerRepository),
+            new Buy6Get1FreeSwitchDiscount($productRepository),
+            new ToolDiscount($productRepository),
+        ]);
     }
 }

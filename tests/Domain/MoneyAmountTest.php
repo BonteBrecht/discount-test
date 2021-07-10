@@ -51,6 +51,18 @@ final class MoneyAmountTest extends TestCase
         self::assertSame($floatValue, MoneyAmount::fromInt($amount)->toFloat());
     }
 
+    /** @test */
+    public function it_should_be_able_to_add(): void
+    {
+        self::assertSame(9_0000, MoneyAmount::fromInt(4_0000)->add(MoneyAmount::fromInt(5_0000))->toInt());
+    }
+
+    /** @test */
+    public function it_should_able_to_multiply(): void
+    {
+        self::assertSame(9_0000, MoneyAmount::fromInt(90_0000)->multiply(0.1)->toInt());
+    }
+
     public function stringAmountProvider(): array
     {
         return [
