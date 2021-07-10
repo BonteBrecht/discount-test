@@ -28,6 +28,11 @@ final class MoneyAmount
         return new self($amount);
     }
 
+    public function add(MoneyAmount $other): self
+    {
+        return MoneyAmount::fromInt($other->toInt() + $this->amount);
+    }
+
     public function toInt(): int
     {
         return $this->amount;

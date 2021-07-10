@@ -11,12 +11,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class LoadFixturesCommand extends Command
 {
-    private const CUSTOMERS = [
+    public const CUSTOMERS = [
         ['id' => '1', 'name' => 'Coca Cola',        'since' => '2014-06-28', 'revenue' => '492.12'],
         ['id' => '2', 'name' => 'Teamleader',       'since' => '2015-01-15', 'revenue' => '1505.95'],
         ['id' => '3', 'name' => 'Jeroen De Wit',    'since' => '2016-02-11', 'revenue' => '0.00']
     ];
-    private const PRODUCTS = [
+    public const PRODUCTS = [
         ['id' => 'A101', 'description' => 'Screwdriver',                    'category' => '1', 'price' => '9.75'],
         ['id' => 'A102', 'description' => 'Electric screwdriver',           'category' => '1', 'price' => '49.50'],
         ['id' => 'B101', 'description' => 'Basic on-off switch',            'category' => '2', 'price' => '4.99'],

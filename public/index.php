@@ -1,6 +1,8 @@
 <?php
 
+use App\Calculator\DiscountCalculator;
 use App\Dto\Order\Order;
+use App\Util\Json;
 use Assert\LazyAssertionException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -13,17 +15,9 @@ $container = require __DIR__ . '/../container.php';
 
 $app = AppFactory::create();
 
-$app->get(
-    '/',
-    static function (Request $request, Response $response, array $args): Response {
-        $response->getBody()->write("Hello world!");
-        return $response;
-    }
-);
-
-$app->get(
+$app->post(
     '/calculate-discount',
-    static function (Request $request, Response $response, array $args): Response {
+    static function (Request $request, Response $response, array $args) use ($container): Response {
         try {
             $data = \json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
         } catch (\JsonException) {
@@ -40,8 +34,14 @@ $app->get(
             return $response->withStatus(422);
         }
 
-        $response->getBody()->write("Hello world!");
-        return $response;
+        $discountCalculator = $container->get(DiscountCalculator::class);
+        \assert($discountCalculator instanceof DiscountCalculator);
+
+        $appliedDiscounts = $discountCalculator->calculateDiscounts($order);
+
+        $response->getBody()->write(Json::encode($appliedDiscounts));
+
+        return $response->withHeader('Content-Type', 'application/json');
     }
 );
 
