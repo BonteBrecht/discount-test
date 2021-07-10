@@ -12,6 +12,12 @@ To set up, first start the docker container responsible for the mysql server.
 docker-compose up mysql
 ```
 
+Next, load dependencies and set up the database
+
+```shell
+./clean_install.sh
+```
+
 Lastly, start the server
 
 ```shell
