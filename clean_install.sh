@@ -24,6 +24,12 @@ $BASEDIR/vendor/bin/phpmig migrate
 
 echo ""
 echo "Load fixtures"
-echo "==============="
+echo "============="
 
 $BASEDIR/bin/console app:infrastructure:load-fixtures || exit 1
+
+echo ""
+echo "Set up pre-commit hook"
+echo "======================"
+
+ln -sf ../../pre_commit.sh $BASEDIR/.git/hooks/pre-commit

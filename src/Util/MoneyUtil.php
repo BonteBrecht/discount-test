@@ -7,11 +7,14 @@ final class MoneyUtil
 {
     public static function amountFromString(string $string): int
     {
+        if (!\is_numeric($string)) {
+            throw new \InvalidArgumentException(\sprintf('Price amounts should be numeric, received "%s"', $string));
+        }
         return self::amountFromFloat((float)$string);
     }
 
     public static function amountFromFloat(float $float): int
     {
-        return (int) ($float * 1000);
+        return (int) \round($float * 1_0000);
     }
 }
