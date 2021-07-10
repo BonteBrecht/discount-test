@@ -50,3 +50,11 @@ Which should result in
 ```json
 {"discounts":[{"name":"buy_6_get_1_free_switch","discount":"4.99"}],"total":"4.99"}
 ```
+
+## Maintenance
+
+Services can be found in `container.php`.
+
+Endpoints are defined in `public/index.php`.
+
+Discounts are defined in `src/Calculator/Discount`, and should be added to the constructor of the `DiscountCalculator` in `container.php`.
