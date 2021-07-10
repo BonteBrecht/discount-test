@@ -37,7 +37,11 @@ final class ClearDatabaseCommand extends Command
 
         $stmt = $this->db->query('SHOW TABLES');
         \assert($stmt !== false);
-        foreach ($stmt->fetchAll(\PDO::FETCH_COLUMN) as $tableName) {
+
+        $tableNames = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+        \assert(\is_array($tableNames));
+
+        foreach ($tableNames as $tableName) {
             $this->db->exec(\sprintf('DROP TABLE %s', $tableName));
         }
 

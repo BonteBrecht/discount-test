@@ -20,6 +20,11 @@ if [ ! -z "$STAGED_FILES" ]; then
 
   if [ ! -z "$STAGED_PHP_FILES" ]; then
       echo ""
+      echo "phpstan"
+      echo "======="
+      $BASEDIR/vendor/bin/phpstan analyse $BASEDIR/phpstan.neon || exit 1
+
+      echo ""
       echo "phpunit"
       echo "======="
       $BASEDIR/vendor/bin/phpunit || exit 1
