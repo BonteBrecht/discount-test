@@ -1,0 +1,26 @@
+{
+    "name": "brecht/discount-test",
+    "description": "Small demo project for calculating discounts on orders",
+    "authors": [
+        {
+            "name": "Brecht Bonte",
+            "email": "bonte.brecht@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "slim/psr7": "^1.4",
+        "slim/slim": "^4.8"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}
