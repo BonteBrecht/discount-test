@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Dto\Order;
 
 use App\Domain\MoneyAmount;
+use Assert\Assert;
 
 final class OrderItem
 {
@@ -17,6 +18,13 @@ final class OrderItem
 
     public static function createFromArray(array $data): self
     {
+        Assert::lazy()
+            ->that($data['product-id'] ?? null, 'product-id')->string()
+            ->that($data['quantity'] ?? null, 'quantity')->string()->integerish()
+            ->that($data['unit-price'] ?? null, 'unit-price')->numeric()
+            ->that($data['total'] ?? null, 'total')->numeric()
+            ->verifyNow();
+
         return new self(
             $data['product-id'],
             (int)$data['quantity'],

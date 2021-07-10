@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Dto\Order;
 
 use App\Domain\MoneyAmount;
+use Assert\Assert;
 
 final class Order
 {
@@ -18,6 +19,13 @@ final class Order
 
     public static function createFromArray(array $data): self
     {
+        Assert::lazy()
+            ->that($data['id'] ?? null, 'id')->string()
+            ->that($data['customer-id'] ?? null, 'customer-id')->string()
+            ->that($data['items'] ?? [], 'items')->isArray()
+            ->that($data['total'] ?? null, 'total')->numeric()
+            ->verifyNow();
+
         return new self(
             $data['id'],
             $data['customer-id'],
