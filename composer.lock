@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56cf996129670586c5c36ba9f1430bc9",
+    "content-hash": "f65d65d7c8fae511184abfaefe9f8536",
     "packages": [
         {
             "name": "davedevelopment/phpmig",
@@ -4289,7 +4289,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.0",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-intl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

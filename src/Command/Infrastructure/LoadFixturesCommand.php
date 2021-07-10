@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Command\Infrastructure;
 
-use App\Util\MoneyUtil;
+use App\Domain\MoneyAmount;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -57,7 +57,7 @@ final class LoadFixturesCommand extends Command
                 'id' => $id,
                 'name' => $name,
                 'since' => $since,
-                'revenue' => MoneyUtil::amountFromString($revenue),
+                'revenue' => MoneyAmount::fromString($revenue)->toInt(),
             ]);
         }
     }
@@ -72,7 +72,7 @@ final class LoadFixturesCommand extends Command
                 'id' => $id,
                 'description' => $description,
                 'category' => $category,
-                'price' => MoneyUtil::amountFromString($price),
+                'price' => MoneyAmount::fromString($price)->toInt(),
             ]);
         }
     }

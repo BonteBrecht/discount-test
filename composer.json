@@ -10,6 +10,7 @@
     "require": {
         "php": ">=8.0",
         "ext-pdo": "*",
+        "ext-intl": "*",
         "davedevelopment/phpmig": "^1.7",
         "pimple/pimple": "^3.4",
         "slim/psr7": "^1.4",
